@@ -1,0 +1,70 @@
+.login-container {
+    display: flex;
+    height: 100vh;
+    // background-image:url(../../../../assets/images/store-background.jpg) ;
+    background-size: cover;
+    .left-wrapper {
+        flex: 1;
+        img {
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+    .right-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary-color);
+        position: relative;
+        h1 {
+            font-size: 40px;
+            color: var(--primary-color);
+            text-align: center;
+            position: absolute;
+            top: 10px;
+        }
+        h2 {
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .inner-wrapper {
+            max-width: 300px;
+            width: 100%;
+            .login-form {
+                display: flex;
+                flex-direction: column;
+                ::ng-deep.mat-mdc-form-field {
+                    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+                        background-color: transparent;
+                        padding: 0;
+                    }
+                    .mat-mdc-form-field-focus-overlay {
+                        background-color: transparent;
+                    }
+                    .mat-mdc-form-field-text-prefix {
+                        .mat-icon {
+                            font-size: 20px;
+                            color: #9d9d9d;
+                        }
+                    }
+                    .mat-mdc-form-field-infix {
+                        padding-left: 10px;
+                    }
+                }
+                ::ng-deep.mat-mdc-checkbox {
+                    margin-bottom: 10px;
+                    margin-left: -10px;
+                    &.mat-mdc-checkbox-checked {
+                        .mdc-checkbox__background {
+                            border-color: var(--primary-color);
+                            background-color: var(--primary-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

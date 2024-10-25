@@ -1,21 +1,26 @@
 <div class="login-container">
-    <h2>Login</h2>
-    <form>
-      <div>
-        <label for="username">Username:</label>
-        <input id="username" formControlName="username" />
-        <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-          Username is required.
-        </div>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" formControlName="password" />
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Password is required.
-        </div>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+  <div class="left-wrapper">
+    <img src="assets/images/store-background.jpg" alt="">
   </div>
-  
+  <div class="right-wrapper">
+    <div class="inner-wrapper">
+      <h1>Positive Live</h1>
+      <h2>Login</h2>
+      <form class="login-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Username</mat-label>
+          <mat-icon matTextPrefix>person</mat-icon>
+          <input type="email" matInput>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <mat-icon matTextPrefix>lock</mat-icon>
+          <input type="password" matInput>
+        </mat-form-field>
+        <mat-checkbox>Remember me!</mat-checkbox>
+        <button mat-flat-button>Login</button>
+      </form>
+    </div>
+  </div>
+
+</div>
