@@ -1,1 +1,102 @@
-<p>ticketing works!</p>
+<div class="common-table">
+  <table
+    matTableExporter
+    #exporter="matTableExporter"
+    mat-table
+    [dataSource]="dataSource"
+    [matSortActive]="sortColumn"
+    [matSortDirection]="sortDirection"
+    matSortDisableClear
+    matSort
+    (matSortChange)="sortData($event)"
+    [class.active-row-table]="rowEventEnabled"
+    class="mat-elevation-z8"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <!-- Define each column -->
+    @for (column of columns; let i = $index; track column;) {
+
+    <ng-container [matColumnDef]="column.name">
+      {{ column }}
+      <th mat-header-cell *matHeaderCellDef cdkDrag>
+        {{ column.displayName }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        @if(column.template) {
+        <ng-container
+          *ngTemplateOutlet="
+            column.template;
+            context: { $implicit: element, index: i, column: column }
+          "
+        ></ng-container>
+        } @else {
+        {{ element[column.name] }}
+        }
+      </td>
+
+      <ng-container [matColumnDef]="displayedColumnFilters[i]">
+        <th mat-header-cell *matHeaderCellDef>
+          <app-inline-filters
+            [filter]="column.filterType"
+            [label]="column.name"
+            [name]="column.name"
+            (filterChange)="applyFilter($event)"
+          ></app-inline-filters>
+        </th>
+      </ng-container>
+    </ng-container>
+    }
+
+    <!-- Header Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <!-- Filter Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumnFilters"></tr>
+
+    <!-- <tr mat-header-row>
+        @for (column of columns; let i = $index; track column;) {
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-form-field appearance="fill">
+                <mat-label>Filter by {{ column }}</mat-label>
+                <input matInput  placeholder="Filter">
+            </mat-form-field>
+        </th>
+    }
+    </tr> -->
+
+    <!-- Data Rows -->
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="rowClick(row)"
+    ></tr>
+  </table>
+
+  <!-- No data and loading messages -->
+  @if(loaded && noDataFound) {
+  <div class="no-data">
+    {{ "common.noRecord" }}
+  </div>
+  } @if(!loaded) {
+  <div class="no-data">
+    {{ "common.loadingText" }}
+  </div>
+  }
+</div>
+
+<button
+  mat-raised-button
+  (click)="
+    exporter.exportTable('xlsx', {
+      fileName: 'test',
+      sheet: 'sheet_name',
+      Props: { Author: 'Talha' }
+    })
+  "
+>
+  Excel
+</button>
+<button mat-raised-button (click)="exporter.exportTable('csv')">Csv</button>
+

@@ -1,0 +1,22 @@
+.table-container {
+  margin: 20px;
+}
+
+mat-header-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-row {
+  height: 48px; /* Adjust the height as needed */
+}
+
+input {
+  margin-top: 5px;
+  width: 100%; /* Make input full width */
+}
+
+
+table {
+  width: 100%;
+}
