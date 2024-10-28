@@ -25,6 +25,9 @@ import { GridColumn } from '../../../interface';
 import { InlineFiltersComponent } from '../inline-filters/inline-filters.component';
 import { TicketService } from '../../../service';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 export enum SortDirection {
   Ascending = 'asc',
@@ -72,9 +75,13 @@ class Ticket {
     CdkDrag,
     CdkDropList,
     MatTableExporterModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
 })
 export class TicketingComponent {
+  resultsLength = 0;
   public displayedColumns = [
     'date',
     'time',

@@ -1,0 +1,117 @@
+<header>
+    <div class="left-wrapper">
+        <img class="logo" src="assets/images/positive-live.svg" alt="">
+        <mat-icon (click)="toggle()">menu</mat-icon>
+    </div>
+    <div class="right-wrapper">
+        <div class="dropdown">
+            <button mat-button [matMenuTriggerFor]="Processing" aria-label="Example icon-button with a menu">
+                <span>Processing</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #Processing="matMenu"  yPosition="below" [overlapTrigger]="false">
+                <button mat-menu-item>
+                    <span>Positive Processing</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Banking</span>
+                </button>
+                <button mat-menu-item>
+                    <span>PCM Processing</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Ticketing</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Collections Processing</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div class="dropdown">
+            <button mat-button [matMenuTriggerFor]="Reporting" aria-label="Example icon-button with a menu">
+                <span>Reporting</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #Reporting="matMenu">
+                <button mat-menu-item>
+                    <span>Collections Reporting</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Marketing</span>
+                </button>
+                <button mat-menu-item>
+                    <span>PCM</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Positive Reporting</span>
+                </button>
+                <button mat-menu-item>
+                    <span>HR Reports</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div class="dropdown">
+            <button mat-button [matMenuTriggerFor]="Maintenance" aria-label="Example icon-button with a menu">
+                <span>Maintenance</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #Maintenance="matMenu">
+                <button mat-menu-item>
+                    <span>User Maintenance</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Positive Maintenance</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Manage Debtot Accounts</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Send marketing SMS</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Dashboard</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Ticketing System</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div class="dropdown">
+            <button mat-button [matMenuTriggerFor]="Mobile" aria-label="Example icon-button with a menu">
+                <span>Mobile</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #Mobile="matMenu">
+                <button mat-menu-item>
+                    <span>Stock Take Screens</span>
+                </button>
+                <button mat-menu-item>
+                    <span>Positive</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div class="dropdown">
+            <button mat-button [matMenuTriggerFor]="Employee" aria-label="Example icon-button with a menu">
+                <span>Employee Tasks</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #Employee="matMenu">
+                <button mat-menu-item>
+                    <span>Apply For Leave</span>
+                </button>
+                <button mat-menu-item>
+                    <span>StoreForce Clock In</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div class="dropdown">
+            <button mat-button aria-label="Example icon-button with a menu">
+                <span>View Report</span>
+            </button>
+        </div>
+        <div class="user">
+            <mat-icon>account_circle</mat-icon>
+            <span>000Davidb</span>
+        </div>
+    </div>
+</header>

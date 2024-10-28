@@ -1,43 +1,28 @@
-
 @switch (filter) {
 	@case (filterTypes.TEXT) {
-				<input
-					type="text"
-					(keydown)="debounceChanged($event)"
-					[attr.id]="name + '-' + randomId"
-					autocomplete="off"
-					class="filter-text-input"
-					tabindex="-1"
-					(keyup)="debounceChanged($event)"
-				/>		
+	<mat-form-field appearance="outline" class="example-full-width">
+		<mat-icon matTextPrefix>search</mat-icon>
+		<input matInput type="text" placeholder="Search" (keydown)="debounceChanged($event)" [attr.id]="name + '-' + randomId" autocomplete="off" class="filter-text-input" tabindex="-1" (keyup)="debounceChanged($event)" />
+	</mat-form-field>
 	}
 	@case(filterTypes.NUMBER) {
-		<div>
-			<input
-				[attr.aria-label]="label"
-				type="text"
-				(keyup)="debounceChanged($event)"
-				[attr.id]="name + '-' + randomId"
-				autocomplete="off"
-				class="filter-text-input"
-				tabindex="-1"
-			/>
-		</div>
+	<mat-form-field appearance="outline" class="example-full-width">
+		<mat-icon matTextPrefix>search</mat-icon>
+		<input matInput [attr.aria-label]="label" placeholder="Search"  type="text" (keyup)="debounceChanged($event)" [attr.id]="name + '-' + randomId" autocomplete="off" class="filter-text-input" tabindex="-1" />
+	</mat-form-field>
 	}
 	@case (filterTypes.SELECT) {
-		<div>
-			<mat-select  (selectionChange)="filterChange.emit($event.value)">
-                <mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
-              </mat-select>
-		</div>
+	<div>
+		<mat-select (selectionChange)="filterChange.emit($event.value)">
+			<mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+		</mat-select>
+	</div>
 	}
-
-
 
 
 	@case (filterTypes.NONE) {
-		<div class="filterContainer">
-			<!-- no filter -->
-		</div>
+	<div class="filterContainer">
+		<!-- no filter -->
+	</div>
 	}
 }

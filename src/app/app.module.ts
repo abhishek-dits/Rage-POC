@@ -6,7 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+
 import { LoginComponent } from './authentication/components/login/login.component';
 import { AppComponent } from './app.component';
 
@@ -23,9 +24,10 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule
   ],
   providers: [],
-  exports:[
+  exports: [
   ]
 })
 export class AppModule { }
