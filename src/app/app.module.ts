@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { LoginComponent } from './authentication/components/login/login.component';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [

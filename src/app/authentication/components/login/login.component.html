@@ -1,26 +1,63 @@
 <div class="login-container">
-  <!-- <div class="left-wrapper">
-    <img src="assets/images/store-background.jpg" alt="">
-  </div> -->
   <div class="right-wrapper">
     <div class="inner-wrapper">
-      <img class="logo" src="assets/images/logo.png" alt="">
+      <img class="logo" src="assets/images/logo.png" alt="" />
       <h2>Login</h2>
-      <form class="login-form">
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="onSubmit(loginForm)"
+        class="login-form"
+      >
         <mat-form-field class="example-full-width">
           <mat-label>Username</mat-label>
           <mat-icon matTextPrefix>person</mat-icon>
-          <input type="email" matInput>
+          <input
+            type="email"
+            matInput
+            [(ngModel)]="username"
+            name="username"
+            required
+            [disabled]="submitted"
+          />
+
+          @if("loginForm.controls.username?.invalid && loginForm.controls.username?.touched"){
+            <mat-error>
+              @if("loginForm.controls.username?.errors?.required"){
+                <span>Username is required.</span
+              >
+              }
+             
+            </mat-error>
+          }
+          
         </mat-form-field>
+
         <mat-form-field class="example-full-width">
           <mat-label>Password</mat-label>
           <mat-icon matTextPrefix>lock</mat-icon>
-          <input type="password" matInput>
+          <input
+            type="password"
+            matInput
+            [(ngModel)]="password"
+            name="password"
+            [disabled]="submitted"
+            required
+          />
+          @if("loginForm.controls.password?.invalid && loginForm.controls.password?.touched"){
+          <mat-error>
+            @if("loginForm.controls.password?.errors?.required") {
+            <span>Password is required.</span>
+            }
+          </mat-error>
+          }
         </mat-form-field>
-        <mat-checkbox>Remember me!</mat-checkbox>
-        <button mat-flat-button>Login</button>
+        <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe"
+          >Remember me!</mat-checkbox
+        >
+        <button mat-flat-button type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
       </form>
     </div>
   </div>
-
 </div>

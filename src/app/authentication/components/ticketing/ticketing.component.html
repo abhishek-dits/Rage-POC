@@ -1,3 +1,5 @@
+@if(!previewChanges)
+{
 <div class="common-table">
   <div class="table-header">
     <div class="left-wrapper">
@@ -36,12 +38,9 @@
       #exporter="matTableExporter"
       mat-table
       [dataSource]="dataSource"
-      [matSortActive]="sortColumn"
-      [matSortDirection]="sortDirection"
       matSortDisableClear
       matSort
       (matSortChange)="sortData($event)"
-      [class.active-row-table]="rowEventEnabled"
       class="mat-elevation-z8"
       cdkDropList
       cdkDropListOrientation="horizontal"
@@ -50,53 +49,45 @@
       <!-- Define each column -->
       @for (column of columns; let i = $index; track column;) {
 
-      <ng-container [matColumnDef]="column.name">
-        {{ column }}
-        <th mat-header-cell *matHeaderCellDef cdkDrag>
-          {{ column.displayName }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          @if(column.template) {
-          <ng-container
-            *ngTemplateOutlet="
-              column.template;
-              context: { $implicit: element, index: i, column: column }
-            "
-          ></ng-container>
-          } @else {
-          {{ element[column.name] }}
-          }
-        </td>
-
-        <ng-container [matColumnDef]="displayedColumnFilters[i]">
-          <th mat-header-cell *matHeaderCellDef>
-            <app-inline-filters
-              [filter]="column.filterType"
-              [label]="column.name"
-              [name]="column.name"
-              (filterChange)="applyFilter($event)"
-            ></app-inline-filters>
+        <ng-container [matColumnDef]="column.name">
+          {{ column }}
+          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+            {{ column.displayName }}
           </th>
+          
+          <td mat-cell *matCellDef="let element">
+            @if(isEditing(element, column.name)) {
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input matInput
+                [(ngModel)]="editingElement[column.name]"
+                (blur)="onEditSave(element)"
+              />
+            </mat-form-field>
+            } @if(!isEditing(element, column.name)) {
+            <span (click)="editElement(element, column.name)">
+              {{ element[column.name] }}
+            </span>
+            } 
+          </td>
+    
+          <ng-container [matColumnDef]="displayedColumnFilters[i]">
+            <th mat-header-cell *matHeaderCellDef>
+              <app-inline-filters
+                [filter]="column.filterType"
+                [label]="column.name"
+                [name]="column.name"
+                [options]="column.options"
+                (filterChange)="applyFilter($event)"
+              ></app-inline-filters>
+            </th>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      }
-
+        }
       <!-- Header Row -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
       <!-- Filter Row -->
       <tr mat-header-row *matHeaderRowDef="displayedColumnFilters"></tr>
-
-      <!-- <tr mat-header-row>
-          @for (column of columns; let i = $index; track column;) {
-          <th mat-header-cell *matHeaderCellDef>
-              <mat-form-field appearance="fill">
-                  <mat-label>Filter by {{ column }}</mat-label>
-                  <input matInput  placeholder="Filter">
-              </mat-form-field>
-          </th>
-      }
-      </tr> -->
 
       <!-- Data Rows -->
       <tr
@@ -117,7 +108,11 @@
   </div> -->
   }
   <div class="table-footer">
-    <mat-paginator [length]="resultsLength" [pageSize]="30" aria-label="Select page of GitHub search results"></mat-paginator>
+    <mat-paginator #paginator
+    (page)="handlePageEvent($event)" [length]="resultsLength" [pageIndex]="0"  
+    aria-label="Select page of GitHub search results"></mat-paginator>
+    
+    
     <div class="filters">
       <div class="flex items-center justify-between ">
         <div class="left-wrapper">
@@ -129,24 +124,116 @@
       </div>
     </div>
     <div class="action-changes-buttons flex justify-end items-center">
-      <button mat-flat-button>Preview Change</button>
-      <button mat-flat-button>Save Change</button>
-      <button mat-flat-button>Cancel Change</button>
+      @if(isEdit){
+      <button mat-flat-button (click)="showPreviewChanges()">Preview Change</button>
+      }
+      @if(previewChanges){
+        <button mat-flat-button (click)="hidePreviewChanges()">Save Change</button>
+        <button mat-flat-button  (click)="cancelChanges()">Cancel Change</button>
+      }
     </div>
   </div>
 </div>
+}
+@if(previewChanges)
+{
+<div class="common-table">
+    <table
+      matTableExporter
+      #exporter="matTableExporter"
+      mat-table
+      [dataSource]="dataSource"
+      matSortDisableClear
+      matSort
+      (matSortChange)="sortData($event)"
+      class="mat-elevation-z8"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <!-- Define each column -->
+      @for (column of columns; let i = $index; track column;) {
 
-<!-- <button
-  mat-raised-button
-  (click)="
-    exporter.exportTable('xlsx', {
-      fileName: 'test',
-      sheet: 'sheet_name',
-      Props: { Author: 'Talha' }
-    })
-  "
->
-  Excel
-</button>
-<button mat-raised-button (click)="exporter.exportTable('csv')">Csv</button> -->
+        <ng-container [matColumnDef]="column.name">
+          {{ column }}
+          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+            {{ column.displayName }}
+          </th>
+          
+          <td mat-cell *matCellDef="let element" [class.highlight]="isChanged(column.name,element.ticket)">
+            @if(isEditing(element, column.name)) {
+            <input
+              [(ngModel)]="editingElement[column.name]"
+              (blur)="onEditSave(element)"
+            />
+            } @if(!isEditing(element, column.name)) {
+            <span (click)="editElement(element, column.name)">
+              {{ element[column.name] }}
+            </span>
+            } 
+          </td>
+    
+          <ng-container [matColumnDef]="displayedColumnFilters[i]">
+            <th mat-header-cell *matHeaderCellDef>
+              <app-inline-filters
+                [filter]="column.filterType"
+                [label]="column.name"
+                [name]="column.name"
+                [options]=""
+                (filterChange)="applyFilter($event)"
+              ></app-inline-filters>
+            </th>
+          </ng-container>
+        </ng-container>
+        }
+  
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+      <!-- Filter Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumnFilters"></tr>
+  
+     
+  
+      <!-- Data Rows -->
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="rowClick(row)"  
+        
+      ></tr>
+    </table>
+  
+    <!-- No data and loading messages -->
+    @if(loaded && noDataFound) {
+    <div class="no-data">
+      {{ "common.noRecord" }}
+    </div>
+    } @if(!loaded) {
+    <div class="no-data">
+      {{ "common.loadingText" }}
+    </div>
+    }
+
+    <div class="table-footer">
+      <mat-paginator [length]="resultsLength" [pageSize]="30" aria-label="Select page of GitHub search results"></mat-paginator>
+      <div class="filters">
+        <div class="flex items-center justify-between ">
+          <div class="left-wrapper">
+            <mat-checkbox><a href="#" class="text-primary text-decoration-none">Add Filter</a></mat-checkbox>
+          </div>
+          <div class="right">
+            <a href="" class="text-primary text-decoration-none">Clear</a>
+          </div>
+        </div>
+      </div>
+      <div class="action-changes-buttons flex justify-end items-center">
+        @if(previewChanges){
+          <button mat-flat-button (click)="hidePreviewChanges()">Save Change</button>
+          <button mat-flat-button  (click)="cancelChanges()">Cancel Change</button>
+        }
+      </div>
+    </div>
+  </div>
+}
 

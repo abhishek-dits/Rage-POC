@@ -12,4 +12,5 @@ export interface GridColumn {
   columnClass?: string;
   hideColumn?: boolean;
   filterType: TableFilterType;
+  options?: string[];
 }
