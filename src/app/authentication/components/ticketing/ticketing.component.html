@@ -3,10 +3,30 @@
 <div class="common-table">
   <div class="table-header">
     <div class="left-wrapper">
-      <button mat-flat-button>
+      <!-- <button mat-flat-button>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>        
         <span>Change Date Range</span>
-      </button>
+      </button> -->
+      <!-- <input type="text" ngxDaterange pickerMd  class="form-control"/> -->
+
+      <input
+      type="text"
+      id="simpleCalendarAutoUpLeft"
+      class="form-control file-input"
+      style="box-shadow: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"
+      readonly
+      ngxDaterangepickerBootstrap
+      [showCancel]="true"
+      [linkedCalendars]="true"
+      [alwaysShowCalendars]="false"
+      [showRangeLabelOnInput]="false"
+      [keepCalendarOpeningWithRange]="false"
+      [closeOnAutoApply]="true"
+      [autoApply]="true"
+      aria-describedby="simpleCalendarAutoUpLeftDesc"
+      placeholder="Select range picker"
+    />
+      
     </div>
     <div class="right-wrapper">
       <div class="dropdown">
@@ -26,7 +46,7 @@
           <button mat-menu-item (click)="exporter.exportTable('csv')">CSV</button>
         </mat-menu>
       </div>
-      <button mat-flat-button >
+      <button mat-flat-button (click)="toggle()">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
         <span>New</span>
       </button>

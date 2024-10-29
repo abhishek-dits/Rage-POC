@@ -12,8 +12,8 @@
 	</mat-form-field>
 	}
 	@case (filterTypes.SELECT) {
-	<div>
-		<mat-select [(ngModel)]="selectedValue" (selectionChange)="debounceChanged($event,true)">
+	<mat-form-field appearance="outline">
+		<mat-select placeholder="Select" [(ngModel)]="selectedValue" (selectionChange)="debounceChanged($event,true)">
 			<mat-option (click)="clearSelection()">Clear</mat-option>
 
 			@for (option of options; let i = $index; track option;) {
@@ -21,7 +21,7 @@
 			<mat-option [value]="option">{{ option }}</mat-option>
 			}
 		</mat-select>
-	</div>
+	</mat-form-field>
 	}
 
 

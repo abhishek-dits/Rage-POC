@@ -1,0 +1,81 @@
+<div class="offcanvas">
+    <div class="offcanvas-container">
+        <div class="offcanvas-header">
+            <h4>New Ticket</h4>
+            <mat-icon>close</mat-icon>
+        </div>
+        <div class="offcanvas-body">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Types of Issue</mat-label>
+                        <mat-select>
+                          @for (issue of issue; track issue) {
+                            <mat-option [value]="issue.value">{{issue.viewValue}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+               <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Clock Number</mat-label>
+                        <mat-select>
+                          @for (clock of clock; track clock) {
+                            <mat-option [value]="clock.value">{{clock.viewValue}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                 <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Branch</mat-label>
+                        <mat-select>
+                          @for (branch of branch; track branch) {
+                            <mat-option [value]="branch.value">{{branch.viewValue}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col full">
+                    <mat-form-field appearance="outline"  class="textarea">
+                        <mat-label>Issue Description</mat-label>
+                        <textarea matInput></textarea>
+                      </mat-form-field>
+                </div>
+                <div class="col full">
+                    <mat-form-field appearance="outline" class="textarea">
+                        <mat-label>Explain the Solution</mat-label>
+                        <textarea matInput></textarea>
+                      </mat-form-field>
+                </div>
+                <div class="col">
+                        <label>Resolved :</label>
+                        <mat-radio-group
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group"
+                        [(ngModel)]="favoriteSeason">
+                        @for (season of seasons; track season) {
+                          <mat-radio-button class="example-radio-button" [value]="season">{{season}}</mat-radio-button>
+                        }
+                      </mat-radio-group>
+                </div>
+                <div class="col flex items-center">
+                    <label>Upload Files :</label>
+                    <input type="file" class="file-input" placeholder="Ex. It makes me feel...">
+                </div>
+                <div class="col">
+                    <label>New Store :</label>
+                    <mat-checkbox class="example-margin"></mat-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas-footer">
+            <button mat-flat-button class="cancel">
+                <span>Cancel</span>
+            </button>
+            <button mat-flat-button>
+                <span>Save</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -26,6 +26,8 @@ import { TableFilterType } from '../../../enums';
 import { ChangedField, GridColumn, Ticket } from '../../../interface';
 import { TicketService } from '../../../service';
 import { InlineFiltersComponent } from '../inline-filters/inline-filters.component';
+import { NgxDaterangepickerBootstrapComponent, NgxDaterangepickerBootstrapDirective, NgxDaterangepickerBootstrapModule } from "ngx-daterangepicker-bootstrap";
+import { AddNewTicketComponent } from '../add-new-ticket/add-new-ticket.component';
 
 @Component({
   selector: 'app-ticketing',
@@ -50,6 +52,10 @@ import { InlineFiltersComponent } from '../inline-filters/inline-filters.compone
     MatPaginatorModule,
     MatCheckboxModule,
     FormsModule,
+    AddNewTicketComponent,
+    NgxDaterangepickerBootstrapDirective, 
+    NgxDaterangepickerBootstrapComponent,
+    NgxDaterangepickerBootstrapModule
   ],
 })
 export class TicketingComponent {
@@ -256,6 +262,7 @@ export class TicketingComponent {
   public resultsLength = 0;
   public data$: Ticket[] = [];
   public filteredData: Ticket[] = [];
+  showAddDialog =false;
 
   private subscription = new Subscription();
 
@@ -278,6 +285,9 @@ export class TicketingComponent {
   pageIndex = 0;
   pageSize = 5;
 
+  toggle(){
+    this.showAddDialog = !this.showAddDialog;
+  }
   ngOnInit() {
     if (this.columns)
       this.displayedColumns = this.columns.map((col) => col.name);
@@ -493,3 +503,7 @@ export class TicketingComponent {
     return this.dataSource.data.length === 0;
   }
 }
+function dayjs() {
+  throw new Error('Function not implemented.');
+}
+
